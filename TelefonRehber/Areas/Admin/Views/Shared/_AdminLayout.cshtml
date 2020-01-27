@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>Telefon Rehberi</title>
+    @Styles.Render("~/bundles/css")
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg" id="admin-nav">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/Admin/AdminHome"><i class="fa fa-unlock"></i>   Admin</a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="PersonelLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Personel İşlemleri
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="PersonelLink">
+                            <a class="dropdown-item" href="/Admin/PersonelIslem/Index">Personel Listesi</a>
+                            <a class="dropdown-item" href="/Admin/PersonelIslem/Ekle">Personel Ekle</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Departman İşlemleri
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/Admin/DepartmanIslem">Departman Listesi</a>
+                            <a class="dropdown-item" href="/Admin/DepartmanIslem/Ekle">Departman Ekle</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Kullanici/SifreDegistir?username=@HttpContext.Current.User.Identity.Name"><i class="fa fa-cog"></i>   Şifre Değiştir</a>
+                    </li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/Security/Logout">Çıkış Yap</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/Security/Login">Giriş Yap</a>
+                        </li>
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        @RenderBody()
+    </main>
+
+
+
+    @Scripts.Render("~/bundles/scripts")
+    @RenderSection("scripts", false)
+
+</body>
+</html>

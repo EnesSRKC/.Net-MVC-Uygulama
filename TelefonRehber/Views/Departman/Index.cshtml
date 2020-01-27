@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TelefonRehber.Models.EntityFramework.TBL_DEPARTMAN>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    <h2>Departman Listesi</h2>
+    <table class="table" id="tblDepartman">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Departman Adı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var departman in Model)
+            {
+                <tr>
+                    <td>@departman.AD</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

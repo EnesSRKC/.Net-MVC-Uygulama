@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TelefonRehber.Models.EntityFramework.TBL_PERSONEL>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (ViewBag.WasDeleted != null && ViewBag.WasDeleted == false)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("Silmek istediğiniz personel başka bir çalışanın yöneticisi olduğundan silme işlemi başarısız.");
+        };
+    </script>
+}
+else if (ViewBag.WasDeleted != null && ViewBag.WasDeleted == true)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("Personel başarıyla silindi.");
+        };
+    </script>
+}
+<div class="container">
+    <h2>Personel Listesi</h2>
+
+    <table class="table" id="tblPersonel">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Adı</th>
+                <th scope="col">Soyadı</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Departman</th>
+                <th scope="col">Yönetici</th>
+                <th scope="col">Maaş</th>
+                <th scope="col">Yaş</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var personel in Model)
+            {
+                <tr>
+                    <td>@personel.AD</td>
+                    <td>@personel.SOYAD</td>
+                    <td>@personel.TELEFON</td>
+                    <td>@(personel.TBL_DEPARTMAN == null ? "Girilmedi" : personel.TBL_DEPARTMAN.AD)</td>
+                    @if (personel.TBL_PERSONEL2 == null)
+                    {
+                        <td>Yok</td>
+                    }
+                    else
+                    {
+                        <td>@personel.TBL_PERSONEL2.AD @personel.TBL_PERSONEL2.SOYAD</td>
+                    }
+                    <td>@personel.MAAS</td>
+                    <td>@(personel.DOGUMTARIHI == null ? "Girilmedi" : (DateTime.Now.Year - personel.DOGUMTARIHI.Value.Year).ToString())</td>
+
+                    <td>
+                        @Html.ActionLink("Detaylar", "Detay", "PersonelIslem", new { area = "Admin", id = personel.ID }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Güncelle", "Guncelle", "PersonelIslem", new { area = "Admin", id = personel.ID }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Sil", "Sil", "PersonelIslem", new { area = "Admin", id = personel.ID }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+

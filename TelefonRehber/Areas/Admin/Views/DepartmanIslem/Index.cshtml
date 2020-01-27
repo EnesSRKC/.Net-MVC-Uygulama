@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TelefonRehber.Models.EntityFramework.TBL_DEPARTMAN>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (ViewBag.WasDeleted != null && ViewBag.WasDeleted == false)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("Silmek istediğiniz departmanda kayıtlı çalışan bulunduğundan işlem başarısız oldu.");
+        };
+    </script>
+}
+else if (ViewBag.WasDeleted != null && ViewBag.WasDeleted == true)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("Departman başarıyla silindi.");
+        };
+    </script>
+}
+<div class="container">
+    <h2>Departman Listesi</h2>
+    <table class="table" id="tblDepartman">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Departman Adı</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var departman in Model)
+            {
+                <tr>
+                    <td>@departman.AD</td>
+                    <td>
+                        @Html.ActionLink("Güncelle", "Guncelle", "DepartmanIslem", new { area = "Admin", id = departman.ID }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Sil", "Sil", "DepartmanIslem", new { area = "Admin", id = departman.ID }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istediğinize emin misiniz?')" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

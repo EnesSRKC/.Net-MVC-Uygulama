@@ -1,0 +1,42 @@
+﻿@model TelefonRehber.ViewModels.SifreDegistirViewModel
+@{
+    ViewBag.Title = "SifreDegistir";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (ViewBag.Mesaj != null)
+{
+<script type="text/javascript">
+
+        window.onload = function () {
+            alert("@ViewBag.Mesaj");
+        };
+</script>
+}
+<div class="container">
+    <h2>Sifre Değistir</h2>
+
+    @using (Html.BeginForm("SifreDegistir", "Kullanici", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m => m.SifreEski)
+            @Html.TextBoxFor(m => m.SifreEski, new { @class = "form-control", placeholder = "Eski Şifre", maxlength = "49", type = "password" })
+            @Html.ValidationMessageFor(m => m.SifreEski)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.SifreYeni)
+            @Html.TextBoxFor(m => m.SifreYeni, new { @class = "form-control", placeholder = "Yeni Şifre", maxlength = "49", type = "password" })
+            @Html.ValidationMessageFor(m => m.SifreYeni)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.SifreYeniOnay)
+            @Html.TextBoxFor(m => m.SifreYeniOnay, new { @class = "form-control", placeholder = "Yeni Şifre Tekrar", maxlength = "49", type = "password" })
+            @Html.ValidationMessageFor(m => m.SifreYeni)
+        </div>
+
+        @Html.HiddenFor(m => m.ID)
+        <button type="submit" class="btn btn-primary">Onayla</button>
+    }
+</div>
+

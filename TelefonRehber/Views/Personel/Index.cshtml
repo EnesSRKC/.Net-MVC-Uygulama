@@ -1,0 +1,35 @@
+﻿@model IEnumerable<TelefonRehber.Models.EntityFramework.TBL_PERSONEL>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="container">
+        <h2>Personel Listesi</h2>
+
+        <table class="table" id="tblPersonel">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Adı</th>
+                    <th scope="col">Soyadı</th>
+                    <th scope="col">Telefon</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var personel in Model)
+                {
+                <tr>
+                    <td>@personel.AD</td>
+                    <td>@personel.SOYAD</td>
+                    <td>@personel.TELEFON</td>
+                    <td>@Html.ActionLink("Detaylar","Detay","Personel", new { id = personel.ID}, new { @class = "btn btn-primary"})</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+

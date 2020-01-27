@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbTelefonRehberModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_DEPARTMAN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AD" Type="varchar" MaxLength="75" />
+        </EntityType>
+        <EntityType Name="TBL_KULLANICI">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="KULLANICIAD" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KULLANICIAD" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SIFRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="ROLE" Type="nvarchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_PERSONEL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMANID" Type="int" />
+          <Property Name="YONETICIID" Type="int" />
+          <Property Name="AD" Type="varchar" MaxLength="65" />
+          <Property Name="SOYAD" Type="varchar" MaxLength="50" />
+          <Property Name="TELEFON" Type="nvarchar" MaxLength="15" />
+          <Property Name="MAAS" Type="smallint" Nullable="false" />
+          <Property Name="DOGUMTARIHI" Type="smalldatetime" />
+          <Property Name="CINSIYET" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TBL_PERSONEL_TBL_DEPARTMAN">
+          <End Role="TBL_DEPARTMAN" Type="Self.TBL_DEPARTMAN" Multiplicity="0..1" />
+          <End Role="TBL_PERSONEL" Type="Self.TBL_PERSONEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DEPARTMAN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_PERSONEL">
+              <PropertyRef Name="DEPARTMANID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_PERSONEL_TBL_PERSONEL">
+          <End Role="TBL_PERSONEL" Type="Self.TBL_PERSONEL" Multiplicity="0..1" />
+          <End Role="TBL_PERSONEL1" Type="Self.TBL_PERSONEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONEL">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_PERSONEL1">
+              <PropertyRef Name="YONETICIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbTelefonRehberModelStoreContainer">
+          <EntitySet Name="TBL_DEPARTMAN" EntityType="Self.TBL_DEPARTMAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_KULLANICI" EntityType="Self.TBL_KULLANICI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PERSONEL" EntityType="Self.TBL_PERSONEL" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_PERSONEL_TBL_DEPARTMAN" Association="Self.FK_TBL_PERSONEL_TBL_DEPARTMAN">
+            <End Role="TBL_DEPARTMAN" EntitySet="TBL_DEPARTMAN" />
+            <End Role="TBL_PERSONEL" EntitySet="TBL_PERSONEL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_PERSONEL_TBL_PERSONEL" Association="Self.FK_TBL_PERSONEL_TBL_PERSONEL">
+            <End Role="TBL_PERSONEL" EntitySet="TBL_PERSONEL" />
+            <End Role="TBL_PERSONEL1" EntitySet="TBL_PERSONEL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbTelefonRehberModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_DEPARTMAN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AD" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_PERSONEL" Relationship="Self.FK_TBL_PERSONEL_TBL_DEPARTMAN" FromRole="TBL_DEPARTMAN" ToRole="TBL_PERSONEL" />
+        </EntityType>
+        <EntityType Name="TBL_PERSONEL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMANID" Type="Int32" />
+          <Property Name="YONETICIID" Type="Int32" />
+          <Property Name="AD" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
+          <Property Name="SOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFON" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="MAAS" Type="Int16" Nullable="false" />
+          <Property Name="DOGUMTARIHI" Type="DateTime" Precision="0" />
+          <Property Name="CINSIYET" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_DEPARTMAN" Relationship="Self.FK_TBL_PERSONEL_TBL_DEPARTMAN" FromRole="TBL_PERSONEL" ToRole="TBL_DEPARTMAN" />
+          <NavigationProperty Name="TBL_PERSONEL1" Relationship="Self.FK_TBL_PERSONEL_TBL_PERSONEL" FromRole="TBL_PERSONEL" ToRole="TBL_PERSONEL1" />
+          <NavigationProperty Name="TBL_PERSONEL2" Relationship="Self.FK_TBL_PERSONEL_TBL_PERSONEL" FromRole="TBL_PERSONEL1" ToRole="TBL_PERSONEL" />
+        </EntityType>
+        <Association Name="FK_TBL_PERSONEL_TBL_DEPARTMAN">
+          <End Role="TBL_DEPARTMAN" Type="Self.TBL_DEPARTMAN" Multiplicity="0..1" />
+          <End Role="TBL_PERSONEL" Type="Self.TBL_PERSONEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DEPARTMAN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_PERSONEL">
+              <PropertyRef Name="DEPARTMANID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_PERSONEL_TBL_PERSONEL">
+          <End Role="TBL_PERSONEL" Type="Self.TBL_PERSONEL" Multiplicity="0..1" />
+          <End Role="TBL_PERSONEL1" Type="Self.TBL_PERSONEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONEL">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_PERSONEL1">
+              <PropertyRef Name="YONETICIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbTelefonRehberEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="TBL_DEPARTMAN" EntityType="Self.TBL_DEPARTMAN" />
+          <EntitySet Name="TBL_PERSONEL" EntityType="Self.TBL_PERSONEL" />
+          <AssociationSet Name="FK_TBL_PERSONEL_TBL_DEPARTMAN" Association="Self.FK_TBL_PERSONEL_TBL_DEPARTMAN">
+            <End Role="TBL_DEPARTMAN" EntitySet="TBL_DEPARTMAN" />
+            <End Role="TBL_PERSONEL" EntitySet="TBL_PERSONEL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_PERSONEL_TBL_PERSONEL" Association="Self.FK_TBL_PERSONEL_TBL_PERSONEL">
+            <End Role="TBL_PERSONEL" EntitySet="TBL_PERSONEL" />
+            <End Role="TBL_PERSONEL1" EntitySet="TBL_PERSONEL" />
+          </AssociationSet>
+          <EntitySet Name="TBL_KULLANICI" EntityType="DbTelefonRehberModel.TBL_KULLANICI" />
+        </EntityContainer>
+        <EntityType Name="TBL_KULLANICI">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="KULLANICIAD" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KULLANICIAD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SIFRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ROLE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbTelefonRehberModelStoreContainer" CdmEntityContainer="DbTelefonRehberEntities">
+          <EntitySetMapping Name="TBL_DEPARTMAN">
+            <EntityTypeMapping TypeName="DbTelefonRehberModel.TBL_DEPARTMAN">
+              <MappingFragment StoreEntitySet="TBL_DEPARTMAN">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PERSONEL">
+            <EntityTypeMapping TypeName="DbTelefonRehberModel.TBL_PERSONEL">
+              <MappingFragment StoreEntitySet="TBL_PERSONEL">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DEPARTMANID" ColumnName="DEPARTMANID" />
+                <ScalarProperty Name="YONETICIID" ColumnName="YONETICIID" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="SOYAD" ColumnName="SOYAD" />
+                <ScalarProperty Name="TELEFON" ColumnName="TELEFON" />
+                <ScalarProperty Name="MAAS" ColumnName="MAAS" />
+                <ScalarProperty Name="DOGUMTARIHI" ColumnName="DOGUMTARIHI" />
+                <ScalarProperty Name="CINSIYET" ColumnName="CINSIYET" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_KULLANICI">
+            <EntityTypeMapping TypeName="DbTelefonRehberModel.TBL_KULLANICI">
+              <MappingFragment StoreEntitySet="TBL_KULLANICI">
+                <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+                <ScalarProperty Name="SIFRE" ColumnName="SIFRE" />
+                <ScalarProperty Name="KULLANICIAD" ColumnName="KULLANICIAD" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

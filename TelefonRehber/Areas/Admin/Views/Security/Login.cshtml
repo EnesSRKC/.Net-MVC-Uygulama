@@ -1,0 +1,40 @@
+﻿@model TelefonRehber.Models.EntityFramework.TBL_KULLANICI
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Security.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+            <br />
+            <br />
+            <!-- Login Form -->
+            @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+            {
+                @Html.TextBoxFor(m => m.KULLANICIAD, new { @id = "login", @class = "fadeIn second", placeholder = "login" })
+                @Html.PasswordFor(m => m.SIFRE, new { @id = "password", @class = "fadeIn third", placeholder = "password" })
+                <input type="submit" class="fadeIn fourth" value="Log In">
+            }
+
+
+
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+            </div>
+
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

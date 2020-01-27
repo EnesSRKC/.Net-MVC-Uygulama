@@ -1,0 +1,69 @@
+﻿@model TelefonRehber.ViewModels.PersonelViewModel
+@{
+    ViewBag.Title = "Kaydet";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+    @using (Html.BeginForm("Kaydet", "PersonelIslem", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.Personel.AD, "Personel Adı")
+                @Html.TextBoxFor(m => m.Personel.AD, new { @class = "form-control", placeholder = "Ad", maxlength = "64"})
+                @Html.ValidationMessageFor(m => m.Personel.AD)
+            </div>
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.Personel.SOYAD, "Personel Soyadı")
+                @Html.TextBoxFor(m => m.Personel.SOYAD, new { @class = "form-control", placeholder = "Soyad", maxlength = "49" })
+                @Html.ValidationMessageFor(m => m.Personel.SOYAD)
+            </div>
+        </div>
+        <div class="form-check form-check-inline">
+            <label>
+                @Html.RadioButtonFor(m => m.Personel.CINSIYET, true, new { @class = "form-check-input"}) Erkek
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <label>
+                @Html.RadioButtonFor(m => m.Personel.CINSIYET, false, new { @class = "form-check-input" }) Kadın
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Personel.TELEFON, "Telefon")
+            @Html.TextBoxFor(m => m.Personel.TELEFON, new { @class = "form-control", placeholder = "Telefon" ,maxlength = "15" })
+            @Html.ValidationMessageFor(m => m.Personel.TELEFON)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Personel.DEPARTMANID, "Departman")
+            @Html.DropDownListFor(m => m.Personel.DEPARTMANID, new SelectList(Model.Departmanlar, "ID", "AD"), "Departman Seçiniz", new { @class = "form-control", name = "personel.YONETICIID" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Personel.YONETICIID, "Yönetici")
+            @Html.DropDownListFor(m => m.Personel.YONETICIID, (SelectList)ViewBag.PersonelListe, "Yönetici Seçiniz", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Personel.MAAS, "Maaş")
+            @Html.TextBoxFor(m => m.Personel.MAAS, new { @class = "form-control", placeholder = "Maaş" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Personel.DOGUMTARIHI, "Doğum Tarihi")
+            @Html.TextBoxFor(m => m.Personel.DOGUMTARIHI, "{0:yyyy/MM/dd}", new { @class = "form-control", placeholder = "Doğum Tarihi" })
+        </div>
+
+        @Html.HiddenFor(m => m.Personel.ID)
+        <button type="submit" class="btn btn-primary">Onayla</button>
+
+    }
+
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
